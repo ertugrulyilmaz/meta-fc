@@ -41,9 +41,9 @@ export default function App() {
   };
 
   const IS_DEV = window.location.href.startsWith("http://127.0.0.1:3000");
-  const [season, setSeason] = React.useState("season-2");
+  const [season, setSeason] = React.useState("season-1");
   const [dataUrl, setDataUrl] = React.useState(
-    IS_DEV ? TEST_DATA_URL : DATA_URLS["season-2"]
+    IS_DEV ? TEST_DATA_URL : DATA_URLS["season-1"]
   );
   const [initialWeek, setInitialWeek] = React.useState(1);
 
@@ -65,15 +65,15 @@ export default function App() {
       return json.table.rows
         .filter((row) => row.c.length > 4)
         .map((row) => ({
-          week: row.c[0].v,
-          homeTeamId: getTeamID(row.c[1].v, season),
-          homeTeam: getTeamName(row.c[1].v, season),
-          homePlayer: getPlayer(row.c[1].v, season),
-          awayTeamId: getTeamID(row.c[2].v, season),
-          awayTeam: getTeamName(row.c[2].v, season),
-          awayPlayer: getPlayer(row.c[2].v, season),
-          homeScore: safeParseInt(row.c[3].v),
-          awayScore: safeParseInt(row.c[4].v),
+          week: row.c[1].v,
+          homeTeamId: getTeamID(row.c[2].v, season),
+          homeTeam: getTeamName(row.c[2].v, season),
+          homePlayer: getPlayer(row.c[2].v, season),
+          awayTeamId: getTeamID(row.c[3].v, season),
+          awayTeam: getTeamName(row.c[3].v, season),
+          awayPlayer: getPlayer(row.c[3].v, season),
+          homeScore: safeParseInt(row.c[4].v),
+          awayScore: safeParseInt(row.c[5].v),
         }));
     },
   });
@@ -107,62 +107,64 @@ export default function App() {
 
   const standingsData = Object.values(
     data.reduce((acc, curr) => {
-      if (!acc.hasOwnProperty(curr.homeTeam)) {
-        acc[curr.homeTeam] = {
+      if (!acc.hasOwnProperty(curr.homePlayer)) {
+        acc[curr.homePlayer] = {
           teamId: curr.homeTeamId,
           teamName: curr.homeTeam,
           player: curr.homePlayer,
-          o: 0,
-          g: 0,
-          b: 0,
-          m: 0,
-          a: 0,
-          y: 0,
-          av: 0,
-          p: 0,
+          mp: 0,
+          w: 0,
+          d: 0,
+          l: 0,
+          gf: 0,
+          ga: 0,
+          gd: 0,
+          pts: 0,
         };
       }
 
-      if (!acc.hasOwnProperty(curr.awayTeam)) {
-        acc[curr.awayTeam] = {
+      if (!acc.hasOwnProperty(curr.awayPlayer)) {
+        acc[curr.awayPlayer] = {
           teamId: curr.awayTeamId,
           teamName: curr.awayTeam,
           player: curr.awayPlayer,
-          o: 0,
-          g: 0,
-          b: 0,
-          m: 0,
-          a: 0,
-          y: 0,
-          av: 0,
-          p: 0,
+          mp: 0,
+          w: 0,
+          d: 0,
+          l: 0,
+          gf: 0,
+          ga: 0,
+          gd: 0,
+          pts: 0,
         };
       }
 
       if (curr.homeScore >= 0 && curr.awayScore >= 0) {
         if (curr.homeScore === curr.awayScore) {
-          acc[curr.homeTeam].b++;
-          acc[curr.awayTeam].b++;
-          acc[curr.homeTeam].p++;
-          acc[curr.awayTeam].p++;
+          acc[curr.homeTeam].d++;
+          acc[curr.awayTeam].d++;
+          acc[curr.homeTeam].mp++;
+          acc[curr.awayTeam].mp++;
+          acc[curr.homeTeam].pts += 1;
+          acc[curr.awayTeam].pts += 1;
         } else if (curr.homeScore >= curr.awayScore) {
-          acc[curr.homeTeam].g++;
-          acc[curr.awayTeam].m++;
-          acc[curr.homeTeam].p += 3;
+          acc[curr.homeTeam].w++;
+          acc[curr.awayTeam].l++;
+          acc[curr.homeTeam].pts += 3;
         } else {
-          acc[curr.homeTeam].m++;
-          acc[curr.awayTeam].g++;
-          acc[curr.awayTeam].p += 3;
+          acc[curr.homeTeam].l++;
+          acc[curr.awayTeam].w++;
+          acc[curr.awayTeam].pts += 3;
         }
 
-        acc[curr.homeTeam].o++;
-        acc[curr.awayTeam].o++;
-        acc[curr.homeTeam].a += curr.homeScore;
-        acc[curr.awayTeam].a += curr.awayScore;
-        acc[curr.homeTeam].y += curr.awayScore;
-        acc[curr.awayTeam].y += curr.homeScore;
-        acc[curr.homeTeam].av = acc[curr.homeTeam].a - acc[curr.homeTeam].y;
-        acc[curr.awayTeam].av = acc[curr.awayTeam].a - acc[curr.awayTeam].y;
+        acc[curr.homeTeam].mp++;
+        acc[curr.awayTeam].mp++;
+        acc[curr.homeTeam].gf += curr.homeScore;
+        acc[curr.awayTeam].gf += curr.awayScore;
+        acc[curr.homeTeam].ga += curr.awayScore;
+        acc[curr.awayTeam].ga += curr.homeScore;
+        acc[curr.homeTeam].gd = acc[curr.homeTeam].gf - acc[curr.homeTeam].ga;
+        acc[curr.awayTeam].gd = acc[curr.awayTeam].gf - acc[curr.awayTeam].ga;
       }
       return acc;
     }, {})
@@ -203,7 +205,7 @@ export default function App() {
           >
             <MenuIcon />
           </IconButton>
-          <img src="/fc25/img/logo.png" width={48} />
+          <img src="/meta-fc/img/logo.png" width={48} />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} ml={1}>
             League
           </Typography>
@@ -215,9 +217,7 @@ export default function App() {
             style={{ color: "white" }}
             onChange={handleSeasonChange}
           >
-            <MenuItem value="season-3">Sezon 3</MenuItem>
-            <MenuItem value="season-2">Sezon 2</MenuItem>
-            <MenuItem value="season-1">Sezon 1</MenuItem>
+            <MenuItem value="season-1">Season 1</MenuItem>
           </Select>
         </Toolbar>
       </AppBar>

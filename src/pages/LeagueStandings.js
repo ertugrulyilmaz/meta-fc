@@ -40,15 +40,15 @@ export default function LeagueStandings({ season, standingsData }) {
       <Table size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <StyledTableCell align="center">Takım</StyledTableCell>
-            <StyledTableCell align="center">O</StyledTableCell>
-            <StyledTableCell align="center">G</StyledTableCell>
-            <StyledTableCell align="center">B</StyledTableCell>
-            <StyledTableCell align="center">M</StyledTableCell>
-            <StyledTableCell align="center">A</StyledTableCell>
-            <StyledTableCell align="center">Y</StyledTableCell>
-            <StyledTableCell align="center">Av</StyledTableCell>
-            <StyledTableCell align="center">P</StyledTableCell>
+            <StyledTableCell align="center">Team</StyledTableCell>
+            <StyledTableCell align="center">MP</StyledTableCell>
+            <StyledTableCell align="center">W</StyledTableCell>
+            <StyledTableCell align="center">D</StyledTableCell>
+            <StyledTableCell align="center">L</StyledTableCell>
+            <StyledTableCell align="center">GF</StyledTableCell>
+            <StyledTableCell align="center">GA</StyledTableCell>
+            <StyledTableCell align="center">GD</StyledTableCell>
+            <StyledTableCell align="center">Pts</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -61,7 +61,7 @@ export default function LeagueStandings({ season, standingsData }) {
                 <Grid container>
                   <Grid alignContent={"center"}>
                     <img
-                      src={"/fc25/img/" + season + "/" + row.teamId + ".png"}
+                      src={"/meta-fc/img/" + season + "/" + row.teamId + ".png"}
                       width={24}
                       height={24}
                       style={{ marginRight: 10, verticalAlign: "middle" }}
@@ -75,14 +75,14 @@ export default function LeagueStandings({ season, standingsData }) {
                   </Grid>
                 </Grid>
               </StyledTableCell>
-              <StyledTableCell align="center">{row.o}</StyledTableCell>
-              <StyledTableCell align="center">{row.g}</StyledTableCell>
-              <StyledTableCell align="center">{row.b}</StyledTableCell>
-              <StyledTableCell align="center">{row.m}</StyledTableCell>
-              <StyledTableCell align="center">{row.a}</StyledTableCell>
-              <StyledTableCell align="center">{row.y}</StyledTableCell>
-              <StyledTableCell align="center">{row.av}</StyledTableCell>
-              <StyledTableCell align="center">{row.p}</StyledTableCell>
+              <StyledTableCell align="center">{row.mp}</StyledTableCell>
+              <StyledTableCell align="center">{row.w}</StyledTableCell>
+              <StyledTableCell align="center">{row.d}</StyledTableCell>
+              <StyledTableCell align="center">{row.l}</StyledTableCell>
+              <StyledTableCell align="center">{row.gf}</StyledTableCell>
+              <StyledTableCell align="center">{row.ga}</StyledTableCell>
+              <StyledTableCell align="center">{row.gd}</StyledTableCell>
+              <StyledTableCell align="center">{row.pts}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

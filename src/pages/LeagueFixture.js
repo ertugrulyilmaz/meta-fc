@@ -72,7 +72,7 @@ export default function LeagueFixture({ season, initialWeek, fixtureData }) {
         </Grid>
         <Grid container size={4} direction={"row"}>
           <Grid size={6} justifyContent={"center"} alignContent={"center"}>
-            Fikstür
+            Fixture
           </Grid>
           <Grid size={6}>
             <Select
@@ -84,7 +84,7 @@ export default function LeagueFixture({ season, initialWeek, fixtureData }) {
             >
               {[...Array(totalWeek).keys()].map((i) => (
                 <MenuItem key={i} value={i + 1}>
-                  {i + 1}. Hafta
+                  {i + 1}. Week
                 </MenuItem>
               ))}
             </Select>
@@ -133,7 +133,7 @@ export default function LeagueFixture({ season, initialWeek, fixtureData }) {
               >
                 <StyledTableCell align="left">
                   <img
-                    src={"/fc25/img/" + season + "/" + row.homeTeamId + ".png"}
+                    src={"/meta-fc/img/" + season + "/" + row.homeTeamId + ".png"}
                     width={24}
                     height={24}
                     style={{ marginRight: 10, verticalAlign: "middle" }}
@@ -149,7 +149,7 @@ export default function LeagueFixture({ season, initialWeek, fixtureData }) {
                 <StyledTableCell align="right">
                   <b>{row.awayTeam}</b>
                   <img
-                    src={"/fc25/img/" + season + "/" + row.awayTeamId + ".png"}
+                    src={"/meta-fc/img/" + season + "/" + row.awayTeamId + ".png"}
                     width={24}
                     height={24}
                     style={{ marginLeft: 10, verticalAlign: "middle" }}
