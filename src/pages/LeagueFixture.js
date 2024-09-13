@@ -138,7 +138,7 @@ export default function LeagueFixture({ season, initialWeek, fixtureData }) {
                     height={24}
                     style={{ marginRight: 10, verticalAlign: "middle" }}
                   />
-                  <b>{row.homeTeam}</b>
+                  <b>{row.homePlayer}</b>
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <span style={{ fontSize: 16 }}>
@@ -147,7 +147,7 @@ export default function LeagueFixture({ season, initialWeek, fixtureData }) {
                   </span>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <b>{row.awayTeam}</b>
+                  <b>{row.awayPlayer}</b>
                   <img
                     src={"/meta-fc/img/" + season + "/" + row.awayTeamId + ".png"}
                     width={24}
