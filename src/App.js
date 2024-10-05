@@ -140,44 +140,44 @@ export default function App() {
       }
 
       if (curr.homeScore >= 0 && curr.awayScore >= 0) {
-        if (curr.homeScore === curr.awayScore) {
-          acc[curr.homeTeam].d++;
-          acc[curr.awayTeam].d++;
-          acc[curr.homeTeam].mp++;
-          acc[curr.awayTeam].mp++;
-          acc[curr.homeTeam].pts += 1;
-          acc[curr.awayTeam].pts += 1;
-        } else if (curr.homeScore >= curr.awayScore) {
-          acc[curr.homeTeam].w++;
-          acc[curr.awayTeam].l++;
-          acc[curr.homeTeam].pts += 3;
+        console.log(curr, acc);
+        if (curr.homeScore == curr.awayScore) {
+          acc[curr.homePlayer].d++;
+          acc[curr.awayPlayer].d++;
+          acc[curr.homePlayer].mp++;
+          acc[curr.awayPlayer].mp++;
+          acc[curr.homePlayer].pts += 1;
+          acc[curr.awayPlayer].pts += 1;
+        } else if (curr.homeScore > curr.awayScore) {
+          acc[curr.homePlayer].w++;
+          acc[curr.homePlayer].pts += 3;
+          acc[curr.awayPlayer].l++;
         } else {
-          acc[curr.homeTeam].l++;
-          acc[curr.awayTeam].w++;
-          acc[curr.awayTeam].pts += 3;
+          acc[curr.awayPlayer].w++;
+          acc[curr.awayPlayer].pts += 3;
+          acc[curr.homePlayer].l++;
         }
 
-        acc[curr.homeTeam].mp++;
-        acc[curr.awayTeam].mp++;
-        acc[curr.homeTeam].gf += curr.homeScore;
-        acc[curr.awayTeam].gf += curr.awayScore;
-        acc[curr.homeTeam].ga += curr.awayScore;
-        acc[curr.awayTeam].ga += curr.homeScore;
-        acc[curr.homeTeam].gd = acc[curr.homeTeam].gf - acc[curr.homeTeam].ga;
-        acc[curr.awayTeam].gd = acc[curr.awayTeam].gf - acc[curr.awayTeam].ga;
+        acc[curr.homePlayer].mp++;
+        acc[curr.awayPlayer].mp++;
+        acc[curr.homePlayer].gf += curr.homeScore;
+        acc[curr.awayPlayer].gf += curr.awayScore;
+        acc[curr.homePlayer].ga += curr.awayScore;
+        acc[curr.awayPlayer].ga += curr.homeScore;
+        acc[curr.homePlayer].gd = acc[curr.homePlayer].gf - acc[curr.homePlayer].ga;
+        acc[curr.awayPlayer].gd = acc[curr.awayPlayer].gf - acc[curr.awayPlayer].ga;
       }
       return acc;
     }, {})
   ).sort((a, b) => {
-    console.log(a);
-    if (a.p > b.p) {
+    if (a.pts > b.pts) {
       return -1;
-    } else if (a.p < b.p) {
+    } else if (a.pts < b.pts) {
       return 1;
     } else {
-      if (a.av > b.av) {
+      if (a.gd > b.gd) {
         return -1;
-      } else if (a.av < b.av) {
+      } else if (a.gd < b.gd) {
         return 1;
       } else {
         // TODO(ertu)
