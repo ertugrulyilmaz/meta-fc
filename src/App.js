@@ -144,8 +144,6 @@ export default function App() {
         if (curr.homeScore == curr.awayScore) {
           acc[curr.homePlayer].d++;
           acc[curr.awayPlayer].d++;
-          acc[curr.homePlayer].mp++;
-          acc[curr.awayPlayer].mp++;
           acc[curr.homePlayer].pts += 1;
           acc[curr.awayPlayer].pts += 1;
         } else if (curr.homeScore > curr.awayScore) {
